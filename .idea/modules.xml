@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AS.iml" filepath="$PROJECT_DIR$/AS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sales.iml" filepath="$PROJECT_DIR$/sales.iml" />
       <module fileurl="file://$PROJECT_DIR$/sales1.iml" filepath="$PROJECT_DIR$/sales1.iml" />
     </modules>

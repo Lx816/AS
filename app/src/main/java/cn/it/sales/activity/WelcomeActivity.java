@@ -15,7 +15,7 @@ import cn.it.sales.Service.MyService;
 import cn.it.sales.Service.SalesBinder;
 import cn.it.sales.bean.User;
 import cn.it.sales.dao.LoginDao;
-//111111
+//1111111
 
 public class WelcomeActivity extends BaseActivity {
     Handler mHandler;
