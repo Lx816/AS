@@ -6,7 +6,8 @@ package cn.it.sales.communal;
 public class Communals {
 
 
-    public static String upweb = "http://172.16.11.126:8080/cms/RequestJsonServlet";
+    public static String upweb = "http://172.16.18.24:8080/cms/UserServlet";
+    public static String upbaidu="http://www.baidu.com";
     public  static String RegisterCode="register";
     public static String SelectCode="select";
     public  static  String loginCode="login";

@@ -35,7 +35,7 @@ public class UserDao {
     }
 
     public User userSelectByName(User user) {
-        String sql = String.format("select * from user where userName= '%s' ", user.getUserName());
+        String sql = String.format("select * from user where userName= '%s' ", user.getGongHao());
         List<Map<String, Object>> listmap = myOpenHelp.examine(sql);
         List<User> users = listMapToUser(listmap);
         if(users!=null && users.size()>0){
@@ -59,7 +59,7 @@ public class UserDao {
     }
     public long adduser(User user){
         ContentValues contentValues=new ContentValues();
-        contentValues.put("username",user.getUserName());
+        contentValues.put("username",user.getGongHao());
         contentValues.put("password",user.getPassWord());
         contentValues.put("name",user.getNick());
         contentValues.put("PhoneNumber",user.getphone());
@@ -81,7 +81,7 @@ public class UserDao {
         return -1;
     }
     public User SelectByLogin(User user){
-        String sql = String.format("select * from user where userName= '%s' and password= '%s' ",user.getUserName(),user.getPassWord());
+        String sql = String.format("select * from user where userName= '%s' and password= '%s' ",user.getGongHao(),user.getPassWord());
         List<Map<String, Object>> listmap=myOpenHelp.examine(sql);
         List<User> users=listMapTolistUserForLogin(listmap);
         if(users!=null&&users.size()>0){
@@ -97,7 +97,7 @@ public class UserDao {
             Map<String,Object> map=list.get(i);
            if(map.containsKey(COLUMN_USERNAME)&&map.containsKey(COLUMN_PASSWORD)&&map.containsKey(COLUMN_GROUPID)){
                user.setUserId((Integer) map.get(COLUMN_ID));
-               user.setUserName((String)map.get(COLUMN_USERNAME));
+               user.setGongHao((String)map.get(COLUMN_USERNAME));
                user.setPassWord((String)map.get(COLUMN_PASSWORD));
                list2.add(user);
            }

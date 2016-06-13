@@ -33,7 +33,7 @@ public class User  implements Serializable{
     }
 
     private String addRess="";
-    private String userName="";
+    private String gongHao="";
     private String passWord="";
     private String nick="";
     private String phone="";
@@ -66,7 +66,7 @@ public class User  implements Serializable{
     private int resultcode;
 
     public User(String userName, String passWord, String nick, String phone, long groupId) {
-        this.userName = userName;
+        this.gongHao = userName;
         this.passWord = passWord;
         this.nick = nick;
         this.phone = phone;
@@ -76,14 +76,14 @@ public class User  implements Serializable{
     public User(){
 
     }
-    public User(String mUsername,String mPassword,long groupid){
-        setUserName(mUsername);
+    public User(String gongHao,String mPassword,long groupid){
+        setGongHao(gongHao);
         setPassWord(mPassword);
         setGroupId(groupid);
     }
-    public User(long userId, String userName, String passWord, String nick, String phone, String email, long online,long groupId) {
+    public User(long userId, String gongHao, String passWord, String nick, String phone, String email, long online,long groupId) {
         setUserId(userId);
-        setUserName(userName);
+        setGongHao(gongHao);
         setPassWord(passWord);
         setNick(nick);
         setPhone(phone);
@@ -93,9 +93,9 @@ public class User  implements Serializable{
 
     }
 
-    public User(String mUserName, String mPassword, String mName, String mPhone, String mAddRess, int mPosition) {
+    public User(String gongHao, String mPassword, String mName, String mPhone, String mAddRess, int mPosition) {
         // TODO Auto-generated constructor stub
-        setUserName(mUserName);
+        setGongHao(gongHao);
         setPassWord(mPassword);
         setNick(mName);
         setPhone(mPhone);
@@ -105,9 +105,9 @@ public class User  implements Serializable{
 
 
     }
-    public User(String mUserName, String mPassword, String name, String phone,int mPosition) {
+    public User(String gongHao, String mPassword, String name, String phone,int mPosition) {
         // TODO Auto-generated constructor stub
-        setUserName(mUserName);
+        setGongHao(gongHao);
         setPassWord(mPassword);
         setNick(name);
         setPhone(phone);
@@ -118,9 +118,6 @@ public class User  implements Serializable{
         return userId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
     public String getPassWord() {
         return passWord;
@@ -151,11 +148,15 @@ public class User  implements Serializable{
 
     }
 
-    public void setUserName(String userName) {
-        if (!TextUtils.isEmpty(userName)){
-            this.userName = userName;
+    public String getGongHao() {
+        return gongHao;
+    }
+
+    public void setGongHao(String gongHao) {
+        if (!TextUtils.isEmpty(gongHao)){
+            this.gongHao = gongHao;
         }else {
-            this.userName="";
+            this.gongHao="";
         }
     }
 

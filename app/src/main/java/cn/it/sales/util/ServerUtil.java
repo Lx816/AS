@@ -12,6 +12,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -43,10 +45,16 @@ public class ServerUtil {
         if (TextUtils.isEmpty(json) || listener == null) {
             throw new Exception("参数不能为空");
         }
+                JSONObject jsona=new JSONObject(json);
+        final JSONObject jsonObject=new JSONObject();
+                jsonObject.put("mode","login");
+                jsonObject.put("user",jsona);
+        String jsonString=jsonObject.toString();
         RequestBody formBody = new FormEncodingBuilder()
                 .add("methodName", selectCode)
-                .add("params", json)
+                .add("params", jsonString)
                 .build();
+        Log.d("houxiao",""+jsonString);
 //        String url1 = url+json;
         //RequestBody body = RequestBody.create(JSON, json);
 //        Log.e("body", formBody + "");
@@ -72,6 +80,18 @@ public class ServerUtil {
                     //3.5
                     String text = response.body().string();
                     mOnOKHttpListener.onSuccess(text);
+                  // ResultUser mResultUser=new ResultUser(1,"注册成功");
+                  // EventBus.getDefault().post(mResultUser);
+//                    try {
+//                        JSONObject jsonObject1=new JSONObject(text);
+//                        int result=jsonObject1.getInt("result");
+//                        if(result==1){
+//
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+
                 }
             }
         };

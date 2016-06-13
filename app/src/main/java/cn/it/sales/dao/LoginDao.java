@@ -41,7 +41,7 @@ public class LoginDao {
         String userName=mSharedPreferences.getString("username", "");
         String password=mSharedPreferences.getString("password", "");
         long groupId=mSharedPreferences.getLong("groupId",-1);
-        mUser.setUserName(userName);
+        mUser.setGongHao(userName);
         mUser.setPassWord(password);
         mUser.setGroupId(groupId);
         return mUser;
@@ -50,7 +50,7 @@ public class LoginDao {
     public void writeRegisterMessage(Context context,User user){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_NANE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("username", user.getUserName());
+        editor.putString("username", user.getGongHao());
         editor.putString("password", user.getPassWord());
         editor.putString("niCheng", user.getNick());
         editor.putString("phone", user.getphone());

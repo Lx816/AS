@@ -29,7 +29,7 @@ import de.greenrobot.event.EventBus;
 
 public class RegisterActivity extends BaseActivity {
     ArrayList<String> mIsEmpty;
-    String mUserName, mPassword, mPassword2, mName, mPhone;
+    String mGongHao, mPassword, mPassword2, mName, mPhone;
     Spinner mSpinner;
     String[] mJob = {"选择职位", "销售", "主管", "库管"};
     User mUser= MyApplication.getUser();
@@ -131,9 +131,9 @@ public class RegisterActivity extends BaseActivity {
         getEditTextInfo();
         mIsEmpty = new ArrayList<String>();
         //如果输入有空，则不能进入注册
-        if (mUserName.isEmpty() || mPassword.isEmpty() || mPassword2.isEmpty() ||
+        if (mGongHao.isEmpty() || mPassword.isEmpty() || mPassword2.isEmpty() ||
                 mName.isEmpty() || mPhone.isEmpty()||!mPassword.equals(mPassword2)||mGroupId == 0) {
-            if (mUserName.isEmpty()) {
+            if (mGongHao.isEmpty()) {
                 mIsEmpty.add("用户名不能为空");
             }
              if (mPassword.isEmpty()) {
@@ -185,7 +185,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void tiJiaoZhuCe() {
         //整合对象
-        mUser = new User(mUserName, mPassword, mName, mPhone, mGroupId);
+        mUser = new User(mGongHao, mPassword, mName, mPhone, mGroupId);
         //上传数据
         if(mBinder!=null) {
             mBinder.userRegister(mUser);
@@ -212,7 +212,7 @@ public class RegisterActivity extends BaseActivity {
 //    }
 
     private void getEditTextInfo() {
-        mUserName = mEditTextUserName.getText().toString();
+        mGongHao = mEditTextUserName.getText().toString();
         mPassword = mEditTextPassword.getText().toString();
         mPassword2 = mEditTextPassword2.getText().toString();
         mName = mEditTextName.getText().toString();
@@ -246,7 +246,7 @@ public class RegisterActivity extends BaseActivity {
             mUserManager.writeRegisterMessage(this,mUser);
             //登录状态
             mUser.setLOGIN_ZHUANGTAI(mUser.ONLINE_VERIFY);
-            Intent intent = new Intent(RegisterActivity.this, SalesmanActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, SalesMainActivity.class);
             startActivity(intent);
         }
     }

@@ -22,6 +22,8 @@ import de.greenrobot.event.EventBus;
  * Created by Administrator on 2016/5/4.
  */
 public class MyService extends Service{
+    ResultUser mResultUser=new ResultUser(1,"注册成功");
+
     public MyService(){
 
     }
@@ -30,12 +32,13 @@ public class MyService extends Service{
         Binder binder=new SalesBinder(this);
         return binder;
     }
+
     public void selectUserMassageforWeb(User user){
         final String locationpasswoed=user.getPassWord();
         final long group=user.getGroupId();
         JSONObject jsonObject=new JSONObject();
         try {
-            jsonObject.put("username",user.getUserName());
+            jsonObject.put("gonghao",user.getGongHao());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -44,6 +47,7 @@ public class MyService extends Service{
         ServerUtil.OnOKHttpListener listener=new ServerUtil.OnOKHttpListener() {
             @Override
             public void onSuccess(String jsonString) {
+
                 try {
                     JSONObject jsonObject1=new JSONObject(jsonString);
                     int result=jsonObject1.getInt("result");
@@ -85,7 +89,7 @@ public class MyService extends Service{
             }
         };
         try {
-            ServerUtil.upJsonStringByPost(Communals.upweb,Communals.SelectCode,jsontext,listener);
+            ServerUtil.upJsonStringByPost(Communals.upbaidu,Communals.SelectCode,jsontext,listener);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,11 +97,13 @@ public class MyService extends Service{
     public void userRegister(User user){
         final JSONObject jsonObject=new JSONObject();
         try {
-            jsonObject.put("username",user.getUserName());
-            jsonObject.put("password",user.getPassWord());
-            jsonObject.put("name",user.getNick());
-            jsonObject.put("phoneNumber",user.getphone());
-           jsonObject.put("groupid",user.getGroupId());
+            jsonObject.put("gonghao",user.getGongHao());
+            jsonObject.put("mima",user.getPassWord());
+            jsonObject.put("xingming",user.getGongHao());
+            jsonObject.put("shoujihaoma",user.getphone());
+            jsonObject.put("xingbie","男");
+            jsonObject.put("email",user.getEmail());
+            jsonObject.put("groupid",user.getGroupId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -109,14 +115,15 @@ public class MyService extends Service{
             //3.7
             @Override
             public void onSuccess(String jsonString) {
+
                 //3.7.1
                 try {
                     JSONObject jsonObject1=new JSONObject(jsonString);
-                    int result=jsonObject1.getInt("code");
+                    int result=jsonObject1.getInt("result");
                     if(result==1){
                         //3.7.2.1
-                        String username=jsonObject1.getString("username");
-                        String password=jsonObject1.getString("password");
+                        String username=jsonObject1.getString("xingming");
+                        String password=jsonObject1.getString("mima");
 //                        Log.d("xxx",username);
                         int gonghao=jsonObject1.getInt("gonghao");
                         long groupid=jsonObject1.getLong("groupid");
@@ -152,7 +159,7 @@ public class MyService extends Service{
             }
         };
         try {
-            ServerUtil.upJsonStringByPost(Communals.upweb,Communals.RegisterCode,jsonText,listener);
+            ServerUtil.upJsonStringByPost(Communals.upbaidu,Communals.RegisterCode,jsonText,listener);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,23 +167,27 @@ public class MyService extends Service{
     public void selectUserNameAndPasswordForWeb(User user){
         final JSONObject jsonObject=new JSONObject();
         try {
-            jsonObject.put("username",user.getUserName());
-            jsonObject.put("password",user.getPassWord());
-            jsonObject.put("groupid",user.getGroupId());
+            jsonObject.put("gonghao",10000);
+            jsonObject.put("password","111111");
+            jsonObject.put("groupid",1001);
             String jsonText=jsonObject.toString();
             Log.d("houxiao",""+jsonText);
             ServerUtil.OnOKHttpListener listener;
             listener=new ServerUtil.OnOKHttpListener() {
                 @Override
                 public void onSuccess(String jsonString) {
+//                    if(true){
+//                        Log.e("xxx",mResultUser.getMessage());
+//                        EventBus.getDefault().post(mResultUser);
+//                        return;
+//                    }
                     try {
                         JSONObject jsonObject1=new JSONObject(jsonString);
                         int result=jsonObject1.getInt("result");
                         if(result==1){
-                            long groupid=jsonObject1.getLong("groupid");
-                            String username=jsonObject1.getString("username");
-                            String password=jsonObject1.getString("password");
-
+                            int groupid=jsonObject1.getInt("groupid");
+                           // String username=jsonObject1.getString("username");
+                          //  String password=jsonObject1.getString("mima");
 //                            Log.d("xw",""+groupid);
 //                            ResultUser resultUser=new ResultUser(username,password,groupid,message,nick);
 //                            //存入首选项
@@ -185,7 +196,6 @@ public class MyService extends Service{
                                 ResultUser resultUser=new ResultUser(result,groupid);
                                 resultUser.setMessage("登录成功");
                                 EventBus.getDefault().post(resultUser);
-
                         }
                         if(result==-1){
                             String message="没有此用户";
@@ -202,10 +212,8 @@ public class MyService extends Service{
                         e.printStackTrace();
                     }
                 }
-
                 @Override
                 public void onFail(boolean b) {
-
                 }
             };
             try {

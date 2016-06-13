@@ -48,7 +48,7 @@ public class UserManager {
         MyResult myResult=new MyResult();
         UserDao userDao=new UserDao();
         User loginTemp=userDao.SelectByLogin(user);
-        if(loginTemp!=null&&!loginTemp.getUserName().equals("")&&!loginTemp.getPassWord().equals("")){
+        if(loginTemp!=null&&!loginTemp.getGongHao().equals("")&&!loginTemp.getPassWord().equals("")){
             UserGroup loginGroup=userDao.selectByloginforGroup(loginTemp.getGroupId());
             if(loginGroup.getGroupId()!=-1){
                 myResult.setCodeAndGroup(1,loginGroup.getGroupId());

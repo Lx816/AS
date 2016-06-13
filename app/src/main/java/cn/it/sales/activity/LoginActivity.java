@@ -23,9 +23,10 @@ import cn.it.sales.Service.SalesBinder;
 import cn.it.sales.bean.ResultUser;
 import cn.it.sales.bean.User;
 import cn.it.sales.dao.LoginDao;
+import de.greenrobot.event.EventBus;
 
 public class LoginActivity extends BaseActivity {
-    String mUsername, mPassWord;
+    String mGongHao, mPassWord;
     ArrayList<String> mIsEmptylogin;
     Context mContext;
     EditText mEditTextUserName, mEditTextPassWord;
@@ -47,6 +48,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        registerEventBus();
         mContext = this;
 
         initEditText();
@@ -58,6 +60,10 @@ public class LoginActivity extends BaseActivity {
         initImageView2();
         //绑定一个服务
         initBinder();
+    }
+
+    private void registerEventBus() {
+        EventBus.getDefault().register(this);
     }
 
     private void initBinder() {
@@ -121,11 +127,9 @@ public class LoginActivity extends BaseActivity {
             }
 
             private void tiJiaoDengLu() {
-                mUser = new User(mUsername,mPassWord,mGroupId);
+                mUser = new User(mGongHao,mPassWord,mGroupId);
                 if(mBinder!=null) {
                     mBinder.selectUserNameAndPassword(mUser);
-                }else{
-                    onRestart();
                 }
             }
         });
@@ -136,15 +140,15 @@ public class LoginActivity extends BaseActivity {
             //存入首选项，根据groupid跳转界面
             mLoginDao.writeRegisterMessage(this, mUser);
             mUser.setLOGIN_ZHUANGTAI(mUser.ONLINE_VERIFY);
-            Intent intent = new Intent(LoginActivity.this, SalesmanActivity.class);
+            Intent intent = new Intent(LoginActivity.this, SalesMainActivity.class);
             startActivity(intent);
         }
     }
 
     private boolean checkInputDengLu() {
         getInputMessage();
-        if (mUsername.isEmpty() || mPassWord.isEmpty()) {
-            if (mUsername.isEmpty()) {
+        if (mGongHao.isEmpty() || mPassWord.isEmpty()) {
+            if (mGongHao.isEmpty()) {
                 mIsEmptylogin.add("用户名不能为空");
             }
             if (mPassWord.isEmpty()) {
@@ -178,7 +182,7 @@ public class LoginActivity extends BaseActivity {
 
     private void getInputMessage() {
         mIsEmptylogin = new ArrayList<String>();
-        mUsername = mEditTextUserName.getText().toString();
+        mGongHao = mEditTextUserName.getText().toString();
         mPassWord = mEditTextPassWord.getText().toString();
     }
 
@@ -191,6 +195,7 @@ public class LoginActivity extends BaseActivity {
     protected void onStop() {
         if (mServiceConnection!=null) {
             this.unbindService(mServiceConnection);
+            EventBus.getDefault().unregister(this);
             super.onStop();
         }
     }
